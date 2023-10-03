@@ -2,6 +2,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -177,6 +179,26 @@ public class LargeNumber {
         return new LargeNumber(digits);
     }
 
+    public LargeNumber divide(LargeNumber v){
+        BigDecimal first = new BigDecimal(this.toStringValue());
+        BigDecimal second = new BigDecimal(v.toStringValue());
+        BigDecimal divide = first.divide(second, RoundingMode.FLOOR);
+        return LargeNumber.fromUTF_8(divide.toString());
+    }
+
+    public LargeNumber remainder(LargeNumber v){
+        BigDecimal first = new BigDecimal(this.toStringValue());
+        BigDecimal second = new BigDecimal(v.toStringValue());
+        BigDecimal remainder = first.remainder(second);
+        return LargeNumber.fromUTF_8(remainder.toString());
+    }
+    public LargeNumber pow(int i){
+        BigDecimal first = new BigDecimal(this.toStringValue());
+        BigDecimal pow = first.pow(i);
+        return LargeNumber.fromUTF_8(pow.toString());
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -187,13 +209,17 @@ public class LargeNumber {
 
     @Override
     public String toString() {
-        String collected = IntStream.range(0, size)
+        String collected = toStringValue();
+        return "LargeNumber{" +
+                "digits=" + collected + '}';
+    }
+
+    private String toStringValue() {
+        return IntStream.range(0, size)
                 .map(i -> size - 1 - i)
                 .map(i -> digits[start + i])
                 .mapToObj(i -> i + "")
                 .collect(Collectors.joining());
-        return "LargeNumber{" +
-                "digits=" + collected + '}';
     }
 
     public String toString(String prefix) {
