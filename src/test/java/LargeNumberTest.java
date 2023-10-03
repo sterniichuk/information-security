@@ -71,8 +71,6 @@ class LargeNumberTest {
         assertEquals(expect, actual);
     }
 
-
-
     @Test
     void simpleMultiplyTest() {
         LargeNumber second = LargeNumber.fromUTF_8("9");

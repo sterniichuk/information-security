@@ -118,8 +118,8 @@ public class LargeNumber {
         LargeNumber cdSum = c.add(d);
         LargeNumber AC_BD_Sum = ac.add(bd);
         LargeNumber sumM = abSum.multiply(cdSum);
-        LargeNumber AD_Plus_BC = sumM.subtract(AC_BD_Sum);//ad+bc
-        // Adjust the shift amounts for odd-length numbers
+        LargeNumber AD_Plus_BC = sumM.subtract(AC_BD_Sum);//ad+bc = (a+b)(c+d)-ac-bd
+        // shift and sum
         LargeNumber AC_Powered = ac.shiftLeft(m * 2);//(ac)*10^2*(n/2)
         LargeNumber AC_BC_PoweredSum = AD_Plus_BC.shiftLeft(m);//(ad+bc)*10^(n/2)
         return AC_Powered.add(AC_BC_PoweredSum).add(bd);
