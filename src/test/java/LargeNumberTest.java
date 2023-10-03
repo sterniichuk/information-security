@@ -18,6 +18,17 @@ class LargeNumberTest {
     }
 
     @Test
+    void subtract() {
+        LargeNumber expect = LargeNumber.fromUTF_8("59800894206659805286227479415488782373291316884370");
+        LargeNumber actual = second.subtract(first);
+        System.out.println(second.toString("second: "));
+        System.out.println(first.toString("first:  "));
+        System.out.println(actual.toString("actual: "));
+        System.out.println(expect.toString("expect: "));
+        assertEquals(expect, actual);
+    }
+
+    @Test
     void multiply() {
         LargeNumber expect = LargeNumber.fromUTF_8("1935119815014074121536103348056448444039083549670411378348797303795444254411091353359440315968381231");
         LargeNumber actual = first.multiply(second);
@@ -32,6 +43,44 @@ class LargeNumberTest {
         LargeNumber first = LargeNumber.fromUTF_8("1000000000");
         LargeNumber second = LargeNumber.fromUTF_8("1000000000");
         LargeNumber expect = LargeNumber.fromUTF_8("1000000000000000000");
+        LargeNumber actual = first.multiply(second);
+        System.out.println(first.toString("first:  "));
+        System.out.println(second.toString("second: "));
+        System.out.println(actual.toString("actual: "));
+        System.out.println(expect.toString("expect: "));
+        assertEquals(expect, actual);
+    }
+
+    @Test
+    void multiplyEasy() {
+        LargeNumber first = LargeNumber.fromUTF_8("146123");
+        LargeNumber second = LargeNumber.fromUTF_8("352120");
+        LargeNumber expect = LargeNumber.fromUTF_8("51452830760");
+        LargeNumber actual = first.multiply(second);
+        System.out.println(first.toString("first:  "));
+        System.out.println(second.toString("second: "));
+        System.out.println(actual.toString("actual: "));
+        System.out.println(expect.toString("expect: "));
+        assertEquals(expect, actual);
+    }
+
+    @Test
+    void multiplyEasy2() {
+        LargeNumber first = LargeNumber.fromUTF_8("146");
+        LargeNumber second = LargeNumber.fromUTF_8("352");
+        LargeNumber expect = LargeNumber.fromUTF_8("51392");
+        LargeNumber actual = first.multiply(second);
+        System.out.println(first.toString("first:  "));
+        System.out.println(second.toString("second: "));
+        System.out.println(actual.toString("actual: "));
+        System.out.println(expect.toString("expect: "));
+        assertEquals(expect, actual);
+    }
+
+    @Test
+    void simpleMultiplyTest() {
+        LargeNumber second = LargeNumber.fromUTF_8("9");
+        LargeNumber expect = LargeNumber.fromUTF_8("209604322259484103989687520984148269644713603862879");
         LargeNumber actual = first.multiply(second);
         System.out.println(first.toString("first:  "));
         System.out.println(second.toString("second: "));
