@@ -67,6 +67,25 @@ public class LargeNumber {
         return new LargeNumber(byteArray, 0, byteArray.length);
     }
 
+    public LargeNumber divide(LargeNumber v) {
+        BigDecimal first = new BigDecimal(this.toStringValue());
+        BigDecimal second = new BigDecimal(v.toStringValue());
+        BigDecimal divide = first.divide(second, RoundingMode.FLOOR);
+        return LargeNumber.fromUTF_8(divide.toString());
+    }
+
+    public LargeNumber remainder(LargeNumber v) {
+        BigDecimal first = new BigDecimal(this.toStringValue());
+        BigDecimal second = new BigDecimal(v.toStringValue());
+        BigDecimal remainder = first.remainder(second);
+        return LargeNumber.fromUTF_8(remainder.toString());
+    }
+
+    public LargeNumber pow(int i) {
+        BigDecimal first = new BigDecimal(this.toStringValue());
+        BigDecimal pow = first.pow(i);
+        return LargeNumber.fromUTF_8(pow.toString());
+    }
 
     public LargeNumber multiply(LargeNumber second) {
         int n = Math.max(this.getSize(), second.getSize());
@@ -81,6 +100,10 @@ public class LargeNumber {
             }
             return simpleMultiply(this, second.digits[start]);
         }
+        return karatsubaMultiply(second, n);
+    }
+
+    public LargeNumber karatsubaMultiply(LargeNumber second, int n) {
         // Split the numbers into two halves
         int m = n / 2;
         int low = n - m;
@@ -178,26 +201,6 @@ public class LargeNumber {
                 });
         return new LargeNumber(digits);
     }
-
-    public LargeNumber divide(LargeNumber v){
-        BigDecimal first = new BigDecimal(this.toStringValue());
-        BigDecimal second = new BigDecimal(v.toStringValue());
-        BigDecimal divide = first.divide(second, RoundingMode.FLOOR);
-        return LargeNumber.fromUTF_8(divide.toString());
-    }
-
-    public LargeNumber remainder(LargeNumber v){
-        BigDecimal first = new BigDecimal(this.toStringValue());
-        BigDecimal second = new BigDecimal(v.toStringValue());
-        BigDecimal remainder = first.remainder(second);
-        return LargeNumber.fromUTF_8(remainder.toString());
-    }
-    public LargeNumber pow(int i){
-        BigDecimal first = new BigDecimal(this.toStringValue());
-        BigDecimal pow = first.pow(i);
-        return LargeNumber.fromUTF_8(pow.toString());
-    }
-
 
     @Override
     public boolean equals(Object o) {
