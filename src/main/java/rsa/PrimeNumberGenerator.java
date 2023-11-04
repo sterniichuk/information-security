@@ -8,11 +8,9 @@ public class PrimeNumberGenerator {
     private static final BigInteger THREE = new BigInteger("3");
 
     public static BigInteger generatePrimeNumber(int bitLength) {
-        assert bitLength % 8 == 0;
         Random random = new Random();
         BigInteger candidate;
         do {
-            // Generate a random BigInteger of the specified bit length
             candidate = new BigInteger(bitLength, random);
         } while (!isPrime(candidate, 5));
         return candidate;
