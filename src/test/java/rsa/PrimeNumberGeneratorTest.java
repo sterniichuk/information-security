@@ -1,6 +1,7 @@
 package rsa;
 
 import org.junit.jupiter.api.Test;
+import rsa.service.PrimeNumberGenerator;
 
 import java.math.BigInteger;
 

@@ -1,4 +1,4 @@
-package rsa;
+package rsa.service;
 
 import java.math.BigInteger;
 
