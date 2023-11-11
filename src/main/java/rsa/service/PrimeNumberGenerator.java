@@ -7,12 +7,13 @@ import java.util.Random;
 public class PrimeNumberGenerator {
     private static final BigInteger THREE = new BigInteger("3");
 
+    @SuppressWarnings("unused")
     public static BigInteger generatePrimeNumber(int bitLength) {
         Random random = new Random();
         BigInteger candidate;
         do {
             candidate = new BigInteger(bitLength, random);
-        } while (!isPrime(candidate, 5));
+        } while (!isPrime(candidate, Math.max(2, candidate.bitLength() / 10)));
         return candidate;
     }
 
