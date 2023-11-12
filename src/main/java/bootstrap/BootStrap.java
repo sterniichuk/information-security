@@ -25,10 +25,9 @@ public class BootStrap {
             RSAKeys aliceKeys = userKeys.aliceKeys();
             RSAKeys bobKeys = userKeys.bobKeys();
             view.showKeys(aliceKeys, bobKeys);
-            User currentUser = ALICE;
+            User user = ALICE;
             var cipher = new Cipher();
             while (true) {
-                User user = currentUser;
                 Key ownKey = switch (user) {
                     case ALICE -> aliceKeys.privateKey();
                     case BOB -> bobKeys.privateKey();
@@ -52,7 +51,7 @@ public class BootStrap {
                 String userMessage = view.getUserMessage(user.name);
                 byte[] encrypted = cipher.encrypt(userMessage.getBytes(), receiverKey);
                 fileService.saveEncryptedFile(encrypted, user);
-                currentUser = currentUser.getOpposite();
+                user = user.getOpposite();
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -82,6 +81,4 @@ public class BootStrap {
 
     private record UserKeys(RSAKeys aliceKeys, RSAKeys bobKeys) {
     }
-
-
 }
