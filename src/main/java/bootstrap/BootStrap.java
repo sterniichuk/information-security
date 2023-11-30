@@ -3,7 +3,7 @@ package bootstrap;
 import rsa.domain.Key;
 import rsa.domain.RSAKeys;
 import rsa.domain.User;
-import rsa.service.Cipher;
+import rsa.service.RSACipher;
 import rsa.service.FileService;
 import rsa.service.RSAKeyGenerator;
 import rsa.service.View;
@@ -26,7 +26,7 @@ public class BootStrap {
             RSAKeys bobKeys = userKeys.bobKeys();
             view.showKeys(aliceKeys, bobKeys);
             User user = ALICE;
-            var cipher = new Cipher();
+            var cipher = new RSACipher();
             while (true) {
                 Key ownKey = switch (user) {
                     case ALICE -> aliceKeys.privateKey();
