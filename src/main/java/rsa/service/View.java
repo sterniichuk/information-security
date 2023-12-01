@@ -34,7 +34,7 @@ public class View implements AutoCloseable {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         sc.close();
     }
 

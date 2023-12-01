@@ -3,7 +3,6 @@ package rsa.service;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
-import java.util.Base64;
 
 public class DESCipher {
     private final Cipher cipher;
@@ -26,7 +25,12 @@ public class DESCipher {
     }
 
     private Key secretKey(String key) {
-        byte[] decodedKey = Base64.getDecoder().decode(key);
+        if (key.length() < 8) {
+            key = key + " ".repeat(8 - key.length());
+        } else if (key.length() > 8) {
+            key = key.substring(0, 8);
+        }
+        byte[] decodedKey = key.getBytes();
         return new SecretKeySpec(decodedKey, 0, decodedKey.length, "DES");
     }
 
