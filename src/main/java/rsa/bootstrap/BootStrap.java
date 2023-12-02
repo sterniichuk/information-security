@@ -1,4 +1,4 @@
-package bootstrap;
+package rsa.bootstrap;
 
 import rsa.domain.Key;
 import rsa.domain.RSAKeys;
@@ -66,7 +66,7 @@ public class BootStrap {
             aliceKeys = new RSAKeys(fileService.readKey(ALICE.publicKey), fileService.readKey(ALICE.privateKey));
             bobKeys = new RSAKeys(fileService.readKey(BOB.publicKey), fileService.readKey(BOB.privateKey));
         } else {
-            fileService.cleanFolder();
+            FileService.cleanFolder();
             int bitLength = view.enterBitLength();
             RSAKeyGenerator generator = new RSAKeyGenerator();
             aliceKeys = generator.generateKeys(bitLength);

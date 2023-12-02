@@ -1,4 +1,4 @@
-package domain;
+package rsa.domain;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

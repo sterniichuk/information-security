@@ -12,13 +12,13 @@ import java.util.*;
 import static rsa.domain.User.*;
 
 public class FileService {
-    private static final String PATH_TO_FOLDER = "output";
-    private static final String $ = File.separator;
+    public static final String PATH_TO_OUTPUT_FOLDER = "output";
+    public static final String $ = File.separator;
     private static final String fileType = ".txt";
 
 
     public void writeKey(Key key, String fileName) {
-        try (var outputStream = new ObjectOutputStream(new FileOutputStream(PATH_TO_FOLDER + $ + fileName))) {
+        try (var outputStream = new ObjectOutputStream(new FileOutputStream(PATH_TO_OUTPUT_FOLDER + $ + fileName))) {
             outputStream.writeObject(key);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -26,22 +26,22 @@ public class FileService {
     }
 
     public Key readKey(String fileName) {
-        try (var outputStream = new ObjectInputStream(new FileInputStream(PATH_TO_FOLDER + $ + fileName))) {
+        try (var outputStream = new ObjectInputStream(new FileInputStream(PATH_TO_OUTPUT_FOLDER + $ + fileName))) {
             return (Key) outputStream.readObject();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void cleanFolder() {
-        File dir = new File(PATH_TO_FOLDER);
+    public static void cleanFolder() {
+        File dir = new File(PATH_TO_OUTPUT_FOLDER);
         for (var f : Objects.requireNonNull(dir.listFiles())) {
             f.delete();
         }
     }
 
     public void cleanFolderExceptFiles(Set<String> skipFiles) {
-        File dir = new File(PATH_TO_FOLDER);
+        File dir = new File(PATH_TO_OUTPUT_FOLDER);
         for (var f : Objects.requireNonNull(dir.listFiles())) {
             if (!skipFiles.contains(f.getName())) {
                 f.delete();
@@ -52,7 +52,7 @@ public class FileService {
     private static final int length = pattern.length();
 
     public void saveDecryptedFile(byte[] msg, User user) {
-        String path = STR. "\{ PATH_TO_FOLDER }\{ $ }\{ user.getReceiverDecryptedMsg() }-\{ LocalTime.now().format(formatter) }\{fileType}" ;
+        String path = STR. "\{ PATH_TO_OUTPUT_FOLDER }\{ $ }\{ user.getReceiverDecryptedMsg() }-\{ LocalTime.now().format(formatter) }\{fileType}" ;
         try {
             Files.write(Path.of(path), msg);
         } catch (IOException e) {
@@ -60,7 +60,7 @@ public class FileService {
         }
     }
     public void saveEncryptedFile(byte[] msg, User user) {
-        String path = STR. "\{ PATH_TO_FOLDER }\{ $ }\{ user.getReceiverEncryptedMsg() }-\{ LocalTime.now().format(formatter) }\{fileType}" ;
+        String path = STR. "\{ PATH_TO_OUTPUT_FOLDER }\{ $ }\{ user.getReceiverEncryptedMsg() }-\{ LocalTime.now().format(formatter) }\{fileType}" ;
         try {
             Files.write(Path.of(path), msg);
         } catch (IOException e) {
@@ -72,7 +72,7 @@ public class FileService {
     }
 
     public Optional<byte[]> getEncryptedMsg(User user) {
-        File dir = new File(PATH_TO_FOLDER);
+        File dir = new File(PATH_TO_OUTPUT_FOLDER);
         String startWith = user.getOpposite().getReceiverEncryptedMsg();
         return Arrays.stream(Objects.requireNonNull(dir.listFiles()))
                 .filter(f -> f.getName().startsWith(startWith))

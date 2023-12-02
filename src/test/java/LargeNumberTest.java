@@ -1,4 +1,4 @@
-import domain.LargeNumber;
+import rsa.domain.LargeNumber;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
